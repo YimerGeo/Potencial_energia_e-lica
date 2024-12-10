@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfica de Modelos Combinados</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <style>
+        /* Estilos generales del body */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #000000, #ffffff); /* Degradado de negro a blanco */
+            color: #ffffff; /* Texto blanco para buen contraste */
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo translúcido */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Cabecera */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* Contenedor de la gráfica */
+        .grafica-container {
+            text-align: center; /* Centrar la gráfica */
+            margin: 20px 0;
+        }
+
+        .grafica-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7); /* Sombra para la gráfica */
+        }
+
+        /* Pie de página */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */
+            padding: 10px 0;
+            color: #ffffff;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #ffffff; /* Color blanco para enlaces */
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline; /* Subrayado al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera -->
+        <header>
+            <h1>Gráfica de Modelos Combinados</h1>
+            <p>A continuación se muestra la gráfica de precisión de los modelos.</p>
+        </header>
+
+        <!-- Contenedor de la gráfica -->
+        <div class="grafica-container">
+            <img src="/graficas/modelos_combinados" alt="Gráfica de Modelos Combinados">
+        </div>
+
+        <!-- Pie de página -->
+        <footer class="footer">
+            <a href="/">Volver al inicio</a>
+        </footer>
+    </div>
+</body>
+</html>

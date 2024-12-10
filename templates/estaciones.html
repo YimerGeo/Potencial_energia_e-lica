@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estaciones en {{ municipio }}</title>
+</head>
+<body>
+    <h1>Estaciones en {{ municipio }}</h1>
+    <table border="1">
+      <tr>
+          <th>Código de Estación</th>
+          <th>Latitud</th>
+          <th>Longitud</th>
+          <th>Distancia (km)</th>
+      </tr>
+      {% for estacion in estaciones %}
+      <tr>
+          <td>{{ estacion.station_code }}</td>
+          <td>{{ estacion.latitude }}</td>
+          <td>{{ estacion.longitude }}</td>
+          {% if estacion.distancia %}
+          <td>{{ estacion.distancia }}</td>
+          {% else %}
+          <td>No disponible</td>
+          {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <a href="/">Volver a Inicio</a>
+</body>
+</html>

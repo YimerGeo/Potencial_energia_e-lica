@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos del CSV</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9; /* Color de fondo suave */
+            color: #333; /* Color de texto oscuro para contraste */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%; /* La hoja ocupa todo el ancho de la pantalla */
+            max-width: 1280px; /* Ancho máximo */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #0073e6; /* Color azul para el título */
+        }
+
+        table {
+            width: 100%; /* La tabla ocupa todo el ancho del contenedor */
+            border-collapse: collapse; /* Colapsar bordes para una apariencia más limpia */
+        }
+
+        th, td {
+            padding: 12px; /* Espaciado interno en celdas */
+            text-align: left; /* Alinear texto a la izquierda */
+            border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+        }
+
+        th {
+            background-color: #0073e6; /* Fondo azul para encabezados */
+            color: white; /* Texto blanco en encabezados */
+            font-weight: bold; /* Negrita para encabezados */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Color de fondo alternativo para filas pares */
+        }
+
+        tr:hover {
+            background-color: #d1e7ff; /* Color de fondo al pasar el mouse sobre filas */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #0073e6; /* Color azul para el enlace */
+            font-size: 1rem;
+        }
+
+        footer a:hover {
+            text-decoration: underline; /* Subrayar al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Datos del CSV</h1>
+        </header>
+        
+        <table id="csvTable" class="display">
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    {% for value in row.values() %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <footer>
+            <a href="/">Volver a Inicio</a>
+        </footer>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#csvTable').DataTable({
+                "pagingType": "full_numbers", // Estilo de paginación
+                "lengthMenu": [5, 10, 25, 50], // Opciones de cantidad de filas
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/Spanish.json" // Idioma español
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot de Monitoreo Eólico</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    <style>
+        /* Estilos generales del body y contenedor */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/graficas/fondo.jpeg');
+            background-size: cover; /* Hace que la imagen cubra toda la pantalla */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Fija la imagen al fondo mientras se hace scroll */
+            margin: 0;
+            padding: 0;
+            color: #ffffff; /* Texto blanco para buen contraste */
+        }
+
+        /* Contenedor para mantener todo el contenido centrado */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo translúcido para el contenedor */
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para darle profundidad */
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        .initial-message {
+            padding: 20px;
+            background-color: rgba(26, 188, 156, 0.9); 
+            color: white; 
+            border-radius: 8px; 
+            text-align:center; 
+            font-size :1.2rem; 
+            margin-bottom: 30px; 
+        }
+
+        #chatbox {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            background-image: url('static/graficas/turnina-eólica.jpg'); /* Imagen de fondo para el chatbot */
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px; /* Asegura que el contorno tenga bordes redondeados */
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para el chat */
+        }
+
+        .response-box {
+            padding: 15px;
+            background-color: rgba(236, 240, 241, 0.9); /* Color de fondo claro para respuestas */
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Permite que la caja de respuesta crezca */
+            color: #2c3e50; /* Color del texto de respuesta */
+        }
+
+        .response-box p {
+            margin: 5px 0; /* Espaciado entre párrafos */
+        }
+
+        #input-container {
+            display: flex; /* Usar flex para centrar el input y botón */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            margin-top: 20px; /* Espaciado superior */
+        }
+
+        #chatbox input {
+            width: 70%; /* Ancho del input */
+            padding: 10px;
+            border-radius: 5px;
+            border: none; /* Sin borde para un aspecto más limpio */
+            font-size: 1rem;
+            margin-right: 10px; /* Espacio entre input y botón */
+            box-shadow: inset 0px 2px 4px rgba(0,0,0,0.3); /* Sombra interna para profundidad */
+        }
+
+        #chatbox button {
+            padding: 10px;
+            background-color: #0073e6; /* Azul claro para botones */
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Efecto de transformación */
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.3); /* Sombra sutil para profundidad */
+        }
+
+        #chatbox button:hover {
+            background-color: #005bb5; /* Cambia a un azul más oscuro al pasar el mouse */
+            transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+        }
+
+        #chatbox button:active {
+            background-color: #00488a; /* Cambia a un azul más oscuro cuando se presiona */
+            transform: translateY(2px); /* Simula el clic con un leve descenso */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #ffffff; /* Color blanco para enlaces en pie de página */
+            font-size: 14px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline; /* Subrayar al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chatbot de Potencial Eólico</h1>
+            <p>Te damos la bienvenida a nuestro asistente virtual para conocer más sobre energía eólica. ¡Estamos aquí para ayudarte!</p>
+        </header>
+
+        <!-- Mensaje de bienvenida inicial -->
+        <div class="initial-message">
+            <p>¡Hola! Soy tu asistente de potencial eólico. Mi misión es ayudarte a ver el potencial eólico cerca a tu casa</p>
+        </div>
+
+        <div id="chatbox">
+            <div class="response-box">
+                {% if response %}
+                    <p><strong>Respuesta:</strong></p>
+                    <p>{{ response | safe }}</p> <!-- Usar 'safe' para permitir HTML -->
+                {% else %}
+                    <p>Por favor, danos tu nombre.</p>
+                {% endif %}
+            </div>
+
+            <!-- Contenedor para el input y botón -->
+            <div id="input-container">
+                <form action="/chat" method="post">
+                    <input type="text" name="user_input" placeholder="Escribe aquí..." required />
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="/" onclick="resetChat()">Volver al inicio</a>
+        </div>
+    </div>
+
+    <script>
+        function resetChat() {
+           
+        }
+    </script>
+</body>
+</html>

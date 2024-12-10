@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a la Aplicación</title>
+    <link rel="stylesheet" href="static/styles.css"> <!-- Ajustar la ruta si es necesario -->
+    <style>
+        /* Estilos para el símbolo de carga */
+        #loading {
+            display: none; /* Oculto por defecto */
+            position: fixed; /* Fijo en la pantalla */
+            top: 50%; /* Centrado verticalmente */
+            left: 50%; /* Centrado horizontalmente */
+            transform: translate(-50%, -50%); /* Ajuste para centrar */
+            z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+            background-color: rgba(200, 200, 200, 0.8); /* Fondo semi-translúcido */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+        }
+
+        #loading p {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3; /* Color claro para el fondo del spinner */
+            border-top: 8px solid #3498db; /* Color azul para la parte superior */
+            border-radius: 50%; /* Forma circular */
+            width: 40px; /* Ancho del spinner */
+            height: 40px; /* Alto del spinner */
+            animation: spin 1s linear infinite; /* Animación de giro */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para el pie de página */
+        .footer {
+            position: fixed; /* Fijo al borde inferior */
+            bottom: 0; /* Alineado al borde inferior */
+            left: 0; /* Empieza desde el borde izquierdo */
+            width: 100%; /* Ocupa todo el ancho */
+            text-align: center; /* Centra el texto horizontalmente */
+            background-color: #f1f1f1;
+            padding: 10px 0;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            margin: 0; /* Asegura que no haya desplazamientos */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Cabecera -->
+        <header class="header">
+            <h1>Bienvenido a la Aplicación de Potencial de Energía Eólica</h1>
+            <p>Seleccione una opción para continuar:</p>
+        </header>
+        
+        <!-- Botones de Navegación -->
+        <div class="main-content">
+            <nav class="nav-buttons">
+                <a href="/ver_csv" class="button" onclick="showLoading()">Ver Base de Datos</a>
+                <a href="/chatbot" class="button">Ir al Chatbot</a>
+                <a href="/graficas/modelos_combinados" class="button">Ver Gráfica de presición IA</a>
+            </nav>
+        </div>
+
+        <!-- Pie de Página -->
+        <footer class="footer">
+            <p>&copy; 2024 Grupo 2</p>
+        </footer>
+
+        <!-- Carga -->
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>Cargando datos, por favor espere...</p>
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block'; // Mostrar el símbolo de carga
+        }
+    </script>
+</body>
+</html>
